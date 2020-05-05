@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:padding="8dp"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/imgProfile"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:background="@drawable/kotlin_logo" />
+
+    <TextView
+        android:id="@+id/tvNama"
+        android:layout_marginStart="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/imgProfile"
+        tools:text="Nama Mahasiswa" />
+
+    <TextView
+        android:id="@+id/tvNpm"
+        android:layout_width="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvNama"
+        android:layout_toEndOf="@id/imgProfile"
+        tools:text="18.11.1811" />
+
+    <TextView
+        android:id="@+id/tvPhone"
+        android:layout_marginStart="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvNpm"
+        android:layout_toEndOf="@id/imgProfile"
+        tools:text="081234567789" />
+
+</RelativeLayout>

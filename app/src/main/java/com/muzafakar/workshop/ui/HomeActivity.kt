@@ -1,40 +1,58 @@
 package com.muzafakar.workshop.ui
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.muzafakar.workshop.util.Data
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.muzafakar.workshop.R
-import com.muzafakar.workshop.adapter.AdapterMahasiswa
-import com.muzafakar.workshop.model.Mahasiswa
+import com.muzafakar.workshop.adapter.AdapterMovie
+import com.muzafakar.workshop.model.MovieResponse
+import com.muzafakar.workshop.network.IMovie
+import com.muzafakar.workshop.network.RetrofitClient
 import kotlinx.android.synthetic.main.activity_home.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.create
 
 class HomeActivity : AppCompatActivity() {
 
-    // access modifier
-    private lateinit var adapterMahasiswa: AdapterMahasiswa
+    private lateinit var adapterMovie: AdapterMovie
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+        adapterMovie = AdapterMovie()
 
-        // inisialisasi adapter
-        adapterMahasiswa = AdapterMahasiswa() {
-            Toast.makeText(this, it.nama, Toast.LENGTH_SHORT).show()
+        rvMovie.adapter = adapterMovie
+        // layoutmanager
+        rvMovie.layoutManager = LinearLayoutManager(this) // vertical
 
-            val intent = Intent(Intent.ACTION_DIAL)
-            val phone = it.phone
-            intent.data = (Uri.parse("tel:$phone"))
-            startActivity(intent)
-        }
+        getData()
 
-        // memasangkan adapter ke listview
-        listContact.adapter = adapterMahasiswa
+    }
 
-        // isi adapter dengan data
-        adapterMahasiswa.addData(Data.dataMahasiswa)
+    private fun getData() {
+        val iMovie = RetrofitClient.generate().create(IMovie::class.java)
+
+        // Threading
+        iMovie.getMovies().enqueue(object : Callback<MovieResponse> {
+            override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
+                Toast.makeText(
+                    this@HomeActivity,
+                    "Request gagal: ${t.localizedMessage}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+            override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
+                val body = response.body()
+                if (body != null) {
+                    adapterMovie.addData(body.results)
+                }
+            }
+        })
     }
 }

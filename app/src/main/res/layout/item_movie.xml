@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/imgPoster"
+        android:layout_width="96dp"
+        android:layout_height="128dp"
+        android:scaleType="centerCrop"
+        tools:src="@drawable/kotlin_logo" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/imgPoster"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        tools:text="Judul Film" />
+
+    <TextView
+        android:id="@+id/tvOverview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvTitle"
+        android:layout_toEndOf="@id/imgPoster"
+        android:ellipsize="end"
+        android:maxLines="3"
+        tools:text="ini deskripsi film ini deskripsi film ini deskripsi film ini deskripsi film ini deskripsi film ini deskripsi film ini deskripsi film ini deskripsi film ini deskripsi film ini deskripsi film ini deskripsi film ini deskripsi film ini deskripsi film ini deskripsi film ini deskripsi film ini deskripsi film ini deskripsi film ini deskripsi film ini deskripsi film " />
+
+    <TextView
+        android:id="@+id/tvReleaseDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/imgPoster"
+        android:layout_alignParentEnd="true"
+        tools:text="20-02-2020" />
+
+</RelativeLayout>
